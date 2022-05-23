@@ -1,1 +1,28 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css";
 
+html {
+    background-color: rgb(171, 213, 248);
+}
+
+h1{ 
+   color: aliceblue; 
+}
+
+li {
+    list-style: none;
+}
+
+img {
+    width: 50%
+}
+
+div#result {    
+    background: rgb(255, 255, 255);
+    border-radius: 60px;
+}
+
+div#prev-result {
+    margin-top: 1rem;
+    background: rgb(255, 255, 255);
+    border-radius: 60px;
+}

@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokemon Liker</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="container">
+    <header>
+        <h1 class="py-3 px-3 is-size-1 has-text-centered">Pokemon Liker</h1>
+    </header>
+
+    <section>
+        <div class="container is-full py-3 px-6 has-text-centered">
+            <form action="" class="">
+                <input class="input is-medium is-rounded " type="text" placeholder="Search for a Pokemon" name="q"
+                    id="search">
+                <!-- <button type="button" id="btn"><img src="images/search.png" alt=""></button> -->
+            </form>
+            <p id="errormessage"></p>
+        </div>
+    </section>
+
+    <div class="container mx-6 py-3 px-6 has-text-centered" id="result">
+
+        <p class="is-size-3 has-text-weight-bold" id="name">Pikachu</p>
+        <p class="is-size-4 has-text-weight-light" id="type">Electric</p>
+        <form>
+            <img class="" id="img"
+                src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png">
+            <p id="shiny"></p>
+        </form>
+
+        <button class="button is-danger is-light" id="likeBtn">Like</button>
+
+    </div>
+    <section>
+        <div class="container mx-6 py-3 px-6 has-text-centered is-hidden" id="prev-result"></div>
+    </section>
+
+
+    <script src="src/index.js" charset="utf-8">
+    </script>
+</body>
+
+</html>

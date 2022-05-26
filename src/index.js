@@ -4,9 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const searchBar = document.getElementById('search')
     const pokemonName = document.getElementById('name')
     const pokemonImg = document.getElementById('img')
+    const pokemonId = document.getElementById('pokemonID')
     const pokemonType = document.getElementById('type')
-    const pokemonResultDiv = document.getElementById('pokedata')
-    const errorMessage = document.getElementById('result')
     const pokemonShinyActivator = document.getElementById('shiny')
     const likeBtn = document.getElementById('likeBtn')
     let query = '';
@@ -24,11 +23,6 @@ document.addEventListener('DOMContentLoaded', () => {
     likeBtn.addEventListener('click', () => {
         addPokemon(query)
         result.className = 'container mx-6 py-3 px-6 has-text-centered'
-        // if (e.target.className === 'button is-danger is-light') {
-        //     addPokemon(query.value)
-        // } else {
-        //     pokemonResultDiv.remove()
-        // }
     })
 
     //functions
@@ -39,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         })
             .then(res => res.json()).catch(() => {
                 alert("Pokemon is not real")
-                // errorMessage.innerHTML = 'Not a Pokemon'
             })
     }
 
@@ -50,8 +43,10 @@ document.addEventListener('DOMContentLoaded', () => {
         pokemonsArr.filter(pokemon => pokemon.name).forEach(pokemon => {
             const names = pokemon.name
             const types = pokemon.types[0].type.name
-            
+            const pokeid = pokemon.id
+            console.log(pokeid)
             pokemonShinyActivator.innerHTML = `Click on ${names.toUpperCase()} to display shiny version`
+            pokemonId.innerHTML = `No. ${pokeid}`
             pokemonName.innerHTML = names.toUpperCase()
             pokemonType.innerHTML = types.toUpperCase()
             
@@ -90,9 +85,11 @@ document.addEventListener('DOMContentLoaded', () => {
         pokemonsArr.filter(pokemon => pokemon.name).forEach(pokemon => {
             const names = pokemon.name
             const types = pokemon.types[0].type.name
-            
+            const pokeid = pokemon.id
+
             const pokeName = document.createElement('p')
             const pokeType = document.createElement('p')
+            const pokeID = document.createElement('p')
             const appendedPokemonImg = document.createElement('img')
         
             const regPkmnSprite = pokemon.sprites.front_default
@@ -111,22 +108,21 @@ document.addEventListener('DOMContentLoaded', () => {
             })
             pokeName.innerText = names.toUpperCase()
             pokeName.className = 'is-size-4 has-text-weight-bold'
+            pokeID.innerHTML = `No. ${pokeid}`
+            pokeID.className = 'is-size-5- has-text-weight-light'
             pokeType.innerHTML = types.toUpperCase()
             pokeType.className = 'is-size-5 has-text-weight-light'
             
             const form = document.createElement('form')
             li.appendChild(pokeName)
+            li.appendChild(pokeID)
             li.appendChild(pokeType)
             li.appendChild(form)
             form.appendChild(appendedPokemonImg)
-            
-
             div.appendChild(li)
         })
         result.appendChild(div)
         
-
-
         const removeBtn = document.createElement('button')
         removeBtn.className = 'button is-danger is-light'
         removeBtn.innerHTML = 'Remove'
@@ -135,10 +131,5 @@ document.addEventListener('DOMContentLoaded', () => {
             e.target = div.remove()
             div.className = 'is-hidden'
         })
-    }
-    const error = () => {
-        const displayError = document.createElement('p')
-        displayError.innerHTML = 'Not A Pokemon'
-        errorMessage.appendChild(displayError)
     }
 })  

@@ -6,6 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pokemonImg = document.getElementById('img')
     const pokemonId = document.getElementById('pokemonID')
     const pokemonType = document.getElementById('type')
+    const pokemonDesc = document.getElementById('desc')
     const pokemonShinyActivator = document.getElementById('shiny')
     const likeBtn = document.getElementById('likeBtn')
     let query = '';
@@ -32,18 +33,46 @@ document.addEventListener('DOMContentLoaded', () => {
             method: 'GET',
         })
             .then(res => res.json()).catch(() => {
-                alert("Pokemon is not real")
+                const alerted = localStorage.getItem('alerted') || '';
+                if (alerted != 'yes') {
+                 alert("Pokemon is not real");
+                 localStorage.setItem('alerted','yes');
+                }
             })
     }
 
+    const fetchDescription = async () => {
+        description = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${query}/`, {
+            method: 'GET'
+        }).then(res => res.json())
+    }
     const showPokemon = async () => {
         await fetchPokemon();
+        await fetchDescription();
+
         const pokemonsArr = [pokemons]
+        const pokemonDescription = [description]
+        
+        console.log(pokemonDescription[0].flavor_text_entries)
+
+        search = (key, inputArray) => {
+            for (let i = 0; i < inputArray.length; i++) {
+                console.log(inputArray[i].language.name)
+                if (inputArray[i].language.name === key) {
+                    const desc = inputArray[i].flavor_text
+                    pokemonDesc.innerHTML = desc.replace('\f', ' ').replace('\n', ' ').replace('<br></br>', '')
+                }
+            }
+          }
+        
+        let descriptionloop = search('en', pokemonDescription[0].flavor_text_entries)
+        console.log(descriptionloop)
+
 
         pokemonsArr.filter(pokemon => pokemon.name).forEach(pokemon => {
             const names = pokemon.name
             const types = pokemon.types[0].type.name
-            const pokeid = pokemon.id
+            pokeid = pokemon.id
             console.log(pokeid)
             pokemonShinyActivator.innerHTML = `Click on ${names.toUpperCase()} to display shiny version`
             pokemonId.innerHTML = `No. ${pokeid}`
